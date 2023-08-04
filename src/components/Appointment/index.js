@@ -1,8 +1,15 @@
-import React from "react";
+import React from 'react'
 import "./styles.scss"
+import Show from "./Show";
+import Empty from "./Empty";
+import Header from "./Header";
 
 export default function Appointment(props){
   return(
-    <article className="appointment"></article>
+    <article className="appointment">
+      <Header time={props.time}/> 
+     {props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} onEdit={props.onEdit} onDelete={props.onDelete}></Show>: <Empty></Empty> }  
+    </article>
+    
   );
 }
