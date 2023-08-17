@@ -6,6 +6,17 @@ import Application from "components/Application";
 
 afterEach(cleanup);
 
-it("renders without crashing", () => {
-  render(<Application />);
+describe("Appointment", () => {
+  it("renders without crashing", () => {
+    render(<Appointment />);
+  });
+
+  it("doesn't call the function", () => {
+    const fn = jest.fn();
+    expect(fn).toHaveBeenCalledTimes(0);
+  });
+
+  it("does something else it is supposed to do", () => {
+    // ...
+  });
 });

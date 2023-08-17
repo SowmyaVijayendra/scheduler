@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getAppointmentsForDay } from "helpers/selectors";
 
-export default function useApplicationData() {
+export default function useApplicationData() {  
   const [state, setState] = useState({
     day: "Monday",
     days: [],
