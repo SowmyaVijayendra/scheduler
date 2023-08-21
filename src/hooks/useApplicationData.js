@@ -71,15 +71,14 @@ export default function useApplicationData() {
   }
 
   useEffect(() => {
-    const daysURL = `http://localhost:8001/api/days`;
-    const appointmentsURL = `http://localhost:8001/api/appointments`;
-    const interviewersURL = `http://localhost:8001/api/interviewers`;
+    const daysURL = `/api/days`;
+    const appointmentsURL = `/api/appointments`;
+    const interviewersURL = `/api/interviewers`;
     Promise.all([
       axios.get(daysURL),
       axios.get(appointmentsURL),
       axios.get(interviewersURL),
-    ]).then((all) => {
-      console.log(all[2].data);
+    ]).then((all) => {     
       setState((prev) => ({
         ...prev,
         days: all[0].data,
