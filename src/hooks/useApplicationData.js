@@ -11,7 +11,7 @@ export default function useApplicationData() {
   });
 
   const setDay = (day) => setState({ ...state, day });
-
+//Fucntion to cancel an interview by deleting an appoitment in the DB through API call
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -20,8 +20,7 @@ export default function useApplicationData() {
     const appointments = {
       ...state.appointments,
       [id]: appointment,
-    };
-    console.log("appoitmnets1", appointments);
+    };    
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then((response) => {
@@ -29,7 +28,7 @@ export default function useApplicationData() {
         setState({ ...state, appointments, days });
       });
   }
-
+// Function to book an interview by adding an appoitment in the DB through API call
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -54,7 +53,7 @@ export default function useApplicationData() {
       });
     return res;
   }
-
+// Function to edit an interview by updating an appointment in the DB through API call
   function updateSpots(requestType) {
     const days = state.days.map((day) => {
       if (day.name === state.day) {

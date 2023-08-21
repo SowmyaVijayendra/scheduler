@@ -17,41 +17,42 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
-  const ERROR_SAVE ="ERROR_SAVE";
-  const ERROR_DELETE ="ERROR_DELETE";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  
+//Function to save the interview
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
     transition(SAVING);
-    props.bookInterview(props.id, interview)
-    .then(() => {
-      transition(SHOW);
-    })
-    .catch((error)=> transition(ERROR_SAVE, true));
+    props
+      .bookInterview(props.id, interview)
+      .then(() => {
+        transition(SHOW);
+      })
+      .catch((error) => transition(ERROR_SAVE, true));
   }
-
+//Function to confirm before deleting
   function initiateDelete() {
     transition(CONFIRM);
   }
-
+//Function to delete an appointment
   function performDelete() {
     transition(DELETING, true);
-    props.cancelInterview(props.id)
-    .then(() => {
-      console.log("In resolve in index file");
-      transition(EMPTY);
-    })
-    .catch((error)=> {      
-      transition(ERROR_DELETE, true);});      
-    }
-   
+    props
+      .cancelInterview(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch((error) => {
+        transition(ERROR_DELETE, true);
+      });
+  }
 
   return (
     <article className="appointment" data-testid="appointment">
@@ -66,11 +67,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === CREATE && (
-        <Form
-          interviewers={props.interviewers}
-          onCancel={back}
-          onSave={save}
-        />
+        <Form interviewers={props.interviewers} onCancel={back} onSave={save} />
       )}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
@@ -90,8 +87,12 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer.id}
         />
       )}
-      {mode === ERROR_DELETE && <Error  message="Could not delete appointment." onClose={back} />}
-      {mode === ERROR_SAVE && <Error  message="Could not save appointment." onClose={back} />}
+      {mode === ERROR_DELETE && (
+        <Error message="Could not delete appointment." onClose={back} />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error message="Could not save appointment." onClose={back} />
+      )}
     </article>
   );
 }

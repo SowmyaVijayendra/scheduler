@@ -9,13 +9,9 @@ import {
   getInterviewersForDay,
 } from "helpers/selectors";
 
-export default function Application(props) {  
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
+export default function Application(props) {
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
@@ -34,7 +30,7 @@ export default function Application(props) {
       />
     );
   });
-    
+
   return (
     <main className="layout">
       <section className="sidebar">
